@@ -1,7 +1,11 @@
 FROM python:3.12-slim
 
-# 设置环境变量，确保 /usr/local/bin 在 PATH 中
-ENV PATH="/usr/local/bin:${PATH}"
+# 设置时区为上海
+ENV TZ=Asia/Shanghai
+RUN apt-get update && apt-get install -y --no-install-recommends tzdata \
+    && ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
