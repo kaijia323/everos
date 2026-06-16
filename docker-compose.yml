@@ -1,0 +1,11 @@
+services:
+  everos:
+    build: .
+    container_name: everos
+    ports:
+      - "18000:8000"
+    volumes:
+      - ./data:/app/.everos        # 持久化数据库和文件
+      # 如果想自定义配置，取消下面注释，并将自己的 .env 放在同目录
+      - ./.env:/app/.env
+    restart: unless-stopped
